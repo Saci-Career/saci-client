@@ -6,7 +6,6 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import axios from 'axios'
 
 export default defineComponent({
   name: 'HelloWorld',
@@ -23,8 +22,12 @@ export default defineComponent({
   methods: {
     async fetchMessage(): Promise<string> {
       try {
-        const response = await axios.get('http://localhost:8080/api/hello')
-        return response.data
+        const response = await fetch('http://localhost:8080/api/hello')
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+        const data = await response.text()
+        return data
       } catch (error) {
         console.error('Error fetching message:', error)
         return 'Error: Unable to fetch message from the backend.'
