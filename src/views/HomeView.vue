@@ -1,8 +1,4 @@
 <template>
-  <HelloWorld />
-</template>
-
-<template>
   <div id="greetings">
     <h1>{{ message }}</h1>
   </div>
