@@ -1,54 +1,41 @@
 const baseURL = 'http://localhost:8081'
 
-async function getData(endpoint: string): Promise<any> {
-  const response = await fetch(`${baseURL}/${endpoint}`)
+async function fetchData(endpoint: string, options: RequestInit = {}): Promise<any> {
+  const response = await fetch(`${baseURL}/${endpoint}`, options)
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`)
   }
-  const data = await response.json()
-  return data
+  return response.json()
+}
+
+async function getData(endpoint: string): Promise<any> {
+  return fetchData(endpoint)
 }
 
 async function postData(endpoint: string, data: any): Promise<any> {
-  const response = await fetch(`${baseURL}/${endpoint}`, {
+  return fetchData(endpoint, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(data)
   })
-
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`)
-  }
-  const responseData = await response.json()
-  return responseData
 }
 
 async function putData(endpoint: string, data: any): Promise<any> {
-  const response = await fetch(`${baseURL}/${endpoint}`, {
+  return fetchData(endpoint, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(data)
   })
-
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`)
-  }
-  const responseData = await response.json()
-  return responseData
 }
 
 async function deleteData(endpoint: string): Promise<string> {
-  const response = await fetch(`${baseURL}/${endpoint}`, {
+  await fetchData(endpoint, {
     method: 'DELETE'
   })
-
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`)
-  }
   return 'Deleted successfully'
 }
 
