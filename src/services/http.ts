@@ -12,7 +12,7 @@ const fetchWrapper = async (url: string, init: RequestInit): Promise<Response> =
   })
 
   // TODO: create an env file to store the URL
-  return await fetch(`http://localhost:8081/api${url}`, {
+  return await fetch(`http://localhost:8080/api${url}`, {
     method: init.method,
     headers,
     body: init.body
