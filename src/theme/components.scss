@@ -1,0 +1,73 @@
+a {
+  text-decoration: none;
+  color: $color-primary;
+  transition: 0.4s;
+  padding: 3px;
+
+  &:hover {
+    background-color: $color-secondary-light-2;
+  }
+}
+
+button,
+input {
+  font-family: 'Noto Sans';
+}
+
+.dialog-footer {
+  text-align: right;
+  margin-top: 10px;
+}
+
+.el-table-v2__header-cell-text {
+  font-weight: 600;
+}
+
+h2 {
+  font-size: 25px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.el-table-v2__header-cell-text {
+  font-weight: 600;
+}
+
+.el-button--text {
+  background: transparent;
+  border-color: transparent;
+  color: $color-link;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.el-input,
+h4 {
+  text-align: center;
+}
+
+.el-table th.el-table__cell {
+  color: $color-black;
+}
+
+.el-button--primary {
+  box-shadow: 2px 3px 7px 0px $color-grey-7;
+}
+
+.el-button {
+  margin-top: 50px;
+  width: 182px;
+  height: 32;
+}
+
+:root {
+  --el-border-radius-base: #{$spacing-s};
+}
+
+.Slider .ElSlider {
+  margin-top: 0;
+  margin-left: 12px;
+}
+.Slider .KnowledgeWeight + .ElSlider {
+  flex: 0 0 70%;
+}

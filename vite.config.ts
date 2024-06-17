@@ -10,7 +10,13 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
-  server: {
-    port: 8081
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `
+          @use "./src/theme/vars/main.scss" as *;
+        `
+      }
+    }
   }
 })
