@@ -1,11 +1,12 @@
 import { defineStore } from 'pinia'
 import { quizAnswer } from './state'
-import { initializeQuizAnswers, getQuizResult } from './actions'
+import { initializeQuizAnswers, getQuizResult, setSelectedRole } from './actions'
 
 export const useQuizStore = defineStore('quizAnswer', () => {
   return {
     quizAnswer,
     initializeQuizAnswers,
-    getQuizResult
+    getQuizResult,
+    setSelectedRole
   }
 })

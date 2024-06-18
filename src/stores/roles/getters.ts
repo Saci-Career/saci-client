@@ -10,4 +10,5 @@ const getRoles = computed(() => {
 export async function getRoleById(roleId: string) {
   return await get<Role>(`/roles/${roleId}`)
 }
+
 export { getRoles }
