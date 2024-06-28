@@ -3,7 +3,6 @@ import { ref, onMounted } from 'vue'
 import { useRolesStore } from '@/stores/roles'
 import { ElSlider, ElButton } from 'element-plus'
 import type { Role } from '@/domain/Role'
-import { quizAnswer } from '@/stores/quiz/state'
 import { ErrorMessage, SuccessMessage } from '@/services/messages'
 import { useQuizStore } from '@/stores/quiz'
 
@@ -14,16 +13,16 @@ const quizStore = useQuizStore()
 
 onMounted(async () => {
   role.value = await rolesStore.getRoleById(roleId.value)
-  quizStore.initializeQuizAnswers(role.value.knowledges ?? [], quizAnswer.value)
+  quizStore.initializeQuizAnswers(role.value.knowledges ?? [])
 })
 
 const getResult = async () => {
-  if (!quizAnswer) {
+  if (!quizStore.quizAnswers) {
     ErrorMessage('No data provided')
   }
   SuccessMessage('Fetching your results...')
   try {
-    await quizStore.getQuizResult(quizAnswer.value)
+    await quizStore.getQuizResult(quizStore.quizAnswers.value)
   } catch (error) {
     ErrorMessage('Error getting your result')
   }
@@ -41,7 +40,7 @@ const getResult = async () => {
         <div class="KnowledgeName">{{ knowledge.name }}</div>
         <div class="KnowledgeInputs">
           <ElSlider
-            v-model="quizAnswer.answers[index].answer"
+            v-model="quizStore.quizAnswers.answers[index].answer"
             :min="0"
             :max="5"
             :step="1"
