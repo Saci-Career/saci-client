@@ -71,3 +71,7 @@ h4 {
 .Slider .KnowledgeWeight + .ElSlider {
   flex: 0 0 70%;
 }
+
+.el-loading-mask {
+  z-index: 9;
+}
