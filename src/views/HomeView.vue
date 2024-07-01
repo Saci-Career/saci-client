@@ -57,7 +57,7 @@
       </p>
       <p v-if="quizStore.quizResult.nextLevel">
         If you want to evolve technically, click
-        <a :href="quizStore.quizResult.nextLevel.link">here</a> to get access<br />
+        <a :href="quizStore.quizResult.nextLevel.link" target="_blank">here</a> to get access<br />
         to a technical knowledge path
       </p>
       <p v-else>You are currently at the highest level.</p>
@@ -136,14 +136,18 @@ const getResult = async () => {
 </script>
 
 <style scoped lang="scss">
-.Container,
+.Container {
+  width: 50vw;
+  height: 100vh;
+  margin: auto;
+  text-align: center;
+  padding-top: 30vh;
+}
 .KnowledgeContainer {
   width: 50vw;
   height: 100vh;
   margin: auto;
   text-align: center;
-  margin-bottom: 100vh;
-  margin-top: 30vh;
 }
 
 .Logo {
