@@ -31,7 +31,7 @@
         />
       </div>
     </div>
-    <ElButton type="primary" @click="getResult()">Get Result</ElButton>
+    <ElButton type="primary" @click="getResult()" v-bind:loading="loading">Get Result</ElButton>
   </div>
 
   <div v-if="quizStore.quizResult" class="ResultScreen">
@@ -52,15 +52,15 @@
 
 <script lang="ts" setup>
 import { ref, onMounted, watch } from 'vue'
-import { ElOption, ElSelect, ElSlider, ElButton } from 'element-plus'
+import { ElOption, ElSelect, ElSlider, ElButton, ElLoading } from 'element-plus'
 import { useRolesStore } from '@/stores/roles'
 import { useQuizStore } from '@/stores/quiz'
 import type { Role } from '@/domain/Role'
-import { ErrorMessage, SuccessMessage } from '@/services/messages'
+import { ErrorMessage } from '@/services/messages'
 
 const rolesStore = useRolesStore()
 const quizStore = useQuizStore()
-
+const loading = ref(false)
 const role = ref<Role | null>(null)
 const localSelectedRole = ref<string | null>(null)
 
@@ -94,9 +94,15 @@ const getResult = async () => {
     ErrorMessage('No data provided')
     return
   }
-  SuccessMessage('Fetching your results...')
+  const loading = ElLoading.service({
+    lock: true,
+    background: 'rgba(255, 255, 255, 0.5)'
+  })
   try {
     await quizStore.updateQuizResult(quizStore.quizAnswers)
+    setTimeout(() => {
+      loading.close()
+    })
   } catch (error) {
     ErrorMessage('Error getting your result')
   }
@@ -168,5 +174,9 @@ h2 {
 .ResultScreen .Logo {
   width: 100px;
   margin-bottom: 20px;
+}
+
+.example-showcase .el-loading-mask {
+  z-index: 9;
 }
 </style>
