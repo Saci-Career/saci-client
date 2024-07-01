@@ -1,12 +1,13 @@
 import { defineStore } from 'pinia'
 import { quizResult, quizAnswers } from './state'
-import { initializeQuizAnswers, getQuizResult, setSelectedRole, getScoreResponse } from './actions'
+import { initializeQuizAnswers, setSelectedRole } from './actions'
 import type { QuizAnswers } from '@/domain/QuizAnswer'
 import type { QuizResult } from '@/domain/QuizResult'
+import { getQuizResult } from './getters'
 
 export const useQuizStore = defineStore('quizAnswer', () => {
   const updateQuizResult = async (quizAnswer: QuizAnswers): Promise<void> => {
-    const scoreResponse: QuizResult = await getScoreResponse(quizAnswer)
+    const scoreResponse: QuizResult = await getQuizResult(quizAnswer)
 
     if (!scoreResponse.currentLevel) {
       throw new Error('Current level data is missing in the response.')
@@ -21,7 +22,6 @@ export const useQuizStore = defineStore('quizAnswer', () => {
     quizResult,
     initializeQuizAnswers,
     getQuizResult,
-    getScoreResponse,
     updateQuizResult,
     setSelectedRole
   }
