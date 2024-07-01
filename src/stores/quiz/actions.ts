@@ -22,9 +22,4 @@ async function setSelectedRole(role: Role) {
   quizAnswers.value.roleId = role.id
 }
 
-const getScoreResponse = async (quizAnswer: QuizAnswers): Promise<QuizResult> => {
-  const response = await post<QuizResult>('/quiz/evaluate-answers', quizAnswer)
-  return response
-}
-
-export { initializeQuizAnswers, getQuizResult, setSelectedRole, getScoreResponse }
+export { initializeQuizAnswers, getQuizResult, setSelectedRole }
