@@ -44,7 +44,11 @@
       <ElButton type="primary" @click="getResult()">Get Result</ElButton>
     </div>
 
-    <div v-if="quizStore.quizResult" class="ResultScreen" ref="resultSectionRef">
+    <div
+      v-if="showResultScreen && quizStore.quizResult && role"
+      class="ResultScreen"
+      ref="resultSectionRef"
+    >
       <img src="@/assets/images/logo-and-lettering.svg" alt="Saci Logo" class="Logo" />
       <p>
         Considering your responses, you are considered<br />
@@ -74,6 +78,7 @@ const rolesStore = useRolesStore()
 const quizStore = useQuizStore()
 const role = ref<Role | null>(null)
 const localSelectedRole = ref<string | null>(null)
+const showResultScreen = ref<boolean>(false)
 
 const roleSectionRef = ref<HTMLElement | null>(null)
 const knowledgeSectionRef = ref<HTMLElement | null>(null)
@@ -107,7 +112,8 @@ const scrollToKnowledgeSection = () => {
   knowledgeSectionRef.value?.scrollIntoView({ behavior: 'smooth' })
 }
 
-const scrollToResultSection = () => {
+const scrollToResultSection = async () => {
+  await nextTick()
   resultSectionRef.value?.scrollIntoView({ behavior: 'smooth' })
 }
 
@@ -120,6 +126,8 @@ const getResult = async () => {
   try {
     await quizStore.updateQuizResult(quizStore.quizAnswers)
     CloseLoadingScreen()
+    showResultScreen.value = true
+    await nextTick()
     scrollToResultSection()
   } catch (error) {
     ErrorMessage('Error getting your result')
@@ -130,8 +138,8 @@ const getResult = async () => {
 <style scoped lang="scss">
 .Container,
 .KnowledgeContainer {
-  width: 800px;
-  height: auto;
+  width: 50vw;
+  height: 100vh;
   margin: auto;
   text-align: center;
   margin-bottom: 100vh;
