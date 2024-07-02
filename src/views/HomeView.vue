@@ -67,11 +67,11 @@ import { ElOption, ElSelect, ElSlider, ElButton } from 'element-plus'
 import { useRolesStore } from '@/stores/roles'
 import { useQuizStore } from '@/stores/quiz'
 import type { Role } from '@/domain/Role'
-import { ErrorMessage, SuccessMessage } from '@/services/messages'
+import { ErrorMessage } from '@/services/messages'
+import { CloseLoadingScreen, ShowLoadingScreen } from '@/services/loading-screen'
 
 const rolesStore = useRolesStore()
 const quizStore = useQuizStore()
-
 const role = ref<Role | null>(null)
 const localSelectedRole = ref<string | null>(null)
 
@@ -112,13 +112,14 @@ const scrollToResultSection = () => {
 }
 
 const getResult = async () => {
+  ShowLoadingScreen()
   if (!quizStore.quizAnswers) {
     ErrorMessage('No data provided')
     return
   }
-  SuccessMessage('Fetching your results...')
   try {
     await quizStore.updateQuizResult(quizStore.quizAnswers)
+    CloseLoadingScreen()
     scrollToResultSection()
   } catch (error) {
     ErrorMessage('Error getting your result')
