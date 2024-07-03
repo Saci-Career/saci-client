@@ -31,7 +31,7 @@
       </h2>
       <div v-for="(knowledge, index) in role.knowledges" :key="index" class="KnowledgeItem">
         <div class="KnowledgeName">{{ knowledge.name }}</div>
-        <div class="KnowledgeInputs">
+        <div class="KnowledgeInput">
           <ElSlider
             v-model="quizStore.quizAnswers.answers[index].answer"
             :min="0"
@@ -137,17 +137,19 @@ const getResult = async () => {
 
 <style scoped lang="scss">
 .Container {
-  width: 50vw;
-  height: 100vh;
-  margin: auto;
-  text-align: center;
-  padding-top: 30vh;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
+
 .KnowledgeContainer {
-  width: 50vw;
-  height: 100vh;
-  margin: auto;
-  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .Logo {
@@ -172,25 +174,19 @@ h2 {
 }
 
 .KnowledgeItem {
-  text-align: center;
   display: flex;
   padding-bottom: 30px;
-  .KnowledgeName {
-    text-align: left;
-  }
-  .el-slider {
-    width: 13vw;
-    height: 2vh;
-  }
-  .KnowledgeInputs {
-    display: flex;
-    justify-content: flex-end;
-  }
-}
+  width: 80%;
 
-.KnowledgeName,
-.KnowledgeInputs {
-  flex: 1;
+  .KnowledgeName {
+    flex-grow: 1;
+  }
+
+  .KnowledgeInput {
+    width: 45vw;
+    display: flex;
+    justify-content: left;
+  }
 }
 
 .ResultScreen {
