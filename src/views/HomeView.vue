@@ -177,6 +177,8 @@ h2 {
   display: flex;
   padding-bottom: 30px;
   width: 80%;
+  gap: 10px;
+  max-width: 60vw;
 
   .KnowledgeName {
     flex-grow: 1;
